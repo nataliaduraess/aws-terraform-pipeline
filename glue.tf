@@ -21,7 +21,17 @@ resource "aws_glue_job" "glue_job" {
   timeout           = 5
 
   command {
-    script_location = "${var.project_name}-scripts-${var.environment}/jobs/jobGlue.py"
+    script_location = "s3://data-platform-scripts-prod/jobs/jobGlue.py"
     python_version  = "3"
   }
 }  
+
+#resource "aws_glue_crawler" "glue_crawler_1" {
+  #database_name = aws_glue_catalog_database.example.name
+ #name          = "example"
+  #role          = aws_iam_role.example.arn
+
+  #s3_target {
+    #path = "s3://data-platform-gold-prod/consume-data/"
+  #}
+#}
