@@ -16,21 +16,22 @@ job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
 
 #Ler os dados do IMDB
+
+schema = 'tconst STRING, titleType STRING, primaryTitle STRING, originalTitle STRING, isAdult STRING, startYear STRING, endYear STRING, runtimeMinutes STRING, genres STRING'
+
 imdb = (
     spark
     .read
     .format("csv")
     .option("header", "true")
-    .option("inferSchema", "true")
-    .option("delimiter", "\t")
+    .option("sep", "\t")
+    .schema(schema)
     .load("s3://data-platform-bronze-prod/raw-database/") 
 )    
-
 
 (
     imdb
     .write
-    .mode("overwrite")
     .format("parquet")
     .save("s3://data-platform-silver-prod/parquet-data/")
 )
