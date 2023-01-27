@@ -20,8 +20,8 @@ imdb = (
     spark
     .read
     .format("csv")
-    .option("header", True)
-    .option("inferSchema", True)
+    .option("header", "true")
+    .option("inferSchema", "true")
     .option("delimiter", "\t")
     .load("s3://data-platform-bronze-prod/raw-database/") 
 )    
